@@ -9,7 +9,8 @@ from langchain.text_splitter import CharacterTextSplitter
 import os
 
 # 🔐 Hugging Face Token (store this in Streamlit secrets when deploying)
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = "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"
+#os.environ["HUGGINGFACEHUB_API_TOKEN"] = "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"
+#os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["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"]
 
 # 📄 Load and split your data
 loader = TextLoader("hmpidata.txt", encoding="utf-8")
