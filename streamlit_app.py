@@ -9,8 +9,7 @@ from langchain.text_splitter import CharacterTextSplitter
 import os
 
 # Hugging Face Token (store this in Streamlit secrets when deploying)
-#os.environ["HUGGINGFACEHUB_API_TOKEN"] = "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"
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets.get("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", "")
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
 
 # Load and split your data
 loader = TextLoader("hmpidata.txt", encoding="utf-8")
@@ -23,9 +22,10 @@ embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-
 vectorstore = Chroma.from_documents(chunks, embeddings)
 
 llm = HuggingFaceHub(
-    repo_id="mistralai/Mistral-7B-Instruct-v0.2",
-    model_kwargs={"temperature": 0.7, "max_new_tokens": 512}
+    repo_id="google/flan-t5-base",
+    model_kwargs={"temperature": 0.7, "max_length": 512}
 )
+
 
 # Memory + Chain
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
