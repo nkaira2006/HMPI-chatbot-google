@@ -22,8 +22,10 @@ chunks = splitter.split_documents(docs)
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 vectorstore = Chroma.from_documents(chunks, embeddings)
 
-# LLM via Hugging Face Hub (Gemma 2B or any hosted model)
-llm = HuggingFaceHub(repo_id="google/gemma-2b", model_kwargs={"temperature": 0.7, "max_new_tokens": 512})
+llm = HuggingFaceHub(
+    repo_id="mistralai/Mistral-7B-Instruct-v0.2",
+    model_kwargs={"temperature": 0.7, "max_new_tokens": 512}
+)
 
 # Memory + Chain
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
